@@ -1,0 +1,34 @@
+.default {
+    padding: 15px;
+    border: 1px solid darkgrey;
+    background-color: #fff;
+    color: darkgrey;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.default.primary {
+    background-color: rgba(113,88,88, 0.6);
+    padding: 15px;
+    border: 1px solid rgba(113,88,88, 0.8);
+    color: #fff;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.danger {
+    background-color: red;
+    padding: 10px;
+    border: 1px solid red;
+    color: #fff;
+    border-radius: 5px;
+}
+
+button {
+    margin: 5px;
+    cursor: pointer;
+}
+
+.load {
+    width: 30px;
+    height: 30px;
+}

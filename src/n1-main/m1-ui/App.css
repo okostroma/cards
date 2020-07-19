@@ -1,0 +1,33 @@
+body {
+  background-color: lavender;
+  overflow-x: hidden;
+}
+
+
+.App {
+  padding: 10px;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+}
+.welcome {
+
+  font-weight: bolder;
+  font-size: 60px;
+
+}
+.main {
+  text-align: center;
+  margin: 200px auto 0;
+}
+
+.particles{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0.4;
+}
