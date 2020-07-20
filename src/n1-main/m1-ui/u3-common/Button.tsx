@@ -3,17 +3,17 @@ import classes from "./Button.module.css";
 
 type OwnPropTypes = {
     buttonName: string
-    type: string
+    buttonType: string
     loading: boolean
 }
 
 
 const Button = (props: OwnPropTypes) => {
     let classAdd = '';
-    if (props.type === 'primary' ) {
+    if (props.buttonType === 'primary' ) {
         classAdd = classes.primary;
     }
-    if (props.type === 'danger' ) {
+    if (props.buttonType === 'danger' ) {
         classAdd = classes.danger;
     }
     let load;

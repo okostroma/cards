@@ -1,14 +1,16 @@
 
 type initialStateType = {
     buttonName: string
-    type: Array<string>
+    buttonType: Array<string>
     loading: boolean
+    inputType: Array<string>
 }
 
 const initialState: initialStateType = {
     buttonName: 'Sign in',
-    type: ['primary', 'danger'],
-    loading: false
+    buttonType: ['primary', 'danger'],
+    loading: false,
+    inputType: ['text', 'password']
 }
 
 const LoginReducer = (state: initialStateType = initialState, action : any) => {

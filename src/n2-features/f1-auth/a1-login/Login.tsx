@@ -7,8 +7,9 @@ import Input from "../../../n1-main/m1-ui/u3-common/Input";
 
 type mapStateToPropsType = {
     buttonName: string
-    type: string
+    buttonType: string
     loading: boolean
+    inputType: Array<string>
 }
 
 const Login = (props: mapStateToPropsType) => {
@@ -17,8 +18,14 @@ const Login = (props: mapStateToPropsType) => {
 
     return (
         <div>
-            <Input/>
-            <Button loading={props.loading} type={props.type} buttonName={props.buttonName}/>
+            <div>
+                Login <Input inputType={props.inputType[0]}/>
+            </div>
+            <div>
+                Password <Input inputType={props.inputType[1]}/>
+            </div>
+
+            <Button loading={props.loading} buttonType={props.buttonType} buttonName={props.buttonName}/>
         </div>
     )
 }
@@ -26,8 +33,9 @@ const Login = (props: mapStateToPropsType) => {
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         buttonName: state.login.buttonName,
-        type: state.login.type[0],
-        loading: state.login.loading
+        buttonType: state.login.buttonType[0],
+        loading: state.login.loading,
+        inputType: state.login.inputType
     }
 }
 

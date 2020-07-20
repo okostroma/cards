@@ -1,16 +1,17 @@
 import React from 'react';
 
 
+type OwnPropsType = {
+    inputType: string
+}
 
 
-const Input = () => {
+
+const Input = (props: OwnPropsType) => {
     return (
         <div>
             <div>
-                Login <input type='text'/>
-            </div>
-            <div>
-                Password <input type='password'/>
+               <input type={props.inputType}/>
             </div>
         </div>
     )

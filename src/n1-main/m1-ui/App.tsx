@@ -46,7 +46,7 @@ const App = () => {
                     "size_min": 0.1,
                     "sync": false
                 }
-            },"interactivity": {
+            }, "interactivity": {
                 "detect_on": "canvas",
                 "events": {
                     "onhover": {
@@ -97,7 +97,8 @@ const App = () => {
                     }
                 }
             }
-        }}
+        }
+    }
 
     return (
         <div className='App'>
@@ -109,11 +110,11 @@ const App = () => {
 
 
                 <div className='main'>
-                <span className='welcome'> Welcome to ANOX! </span>
-                <div>
-                    Study different things with us!
+                    <span className='welcome'> Welcome to ANOX! </span>
+                    <div>
+                        Study different things with us!
+                    </div>
                 </div>
-            </div>
 
 
             </HashRouter>
