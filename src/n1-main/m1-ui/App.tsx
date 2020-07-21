@@ -4,10 +4,21 @@ import {HashRouter, Route} from "react-router-dom";
 import Login from "../../n2-features/f1-auth/a1-login/Login";
 import Registration from "../../n2-features/f1-auth/a2-registration/Registration";
 import Header from "./u1-header/Header";
-import {login, registration} from "./u2-routes/routes";
+import {login, registration, restore} from "./u2-routes/routes";
 import Particles from 'react-particles-js';
+import RestorePassword from "../../n2-features/f1-auth/a3-restorePassword/RestorePassword";
+import {connect} from "react-redux";
+import {AppStateType} from "../m2-bll/store";
 
-const App = () => {
+
+
+type MapStateToPropsType = {
+    isAuthByLogin: boolean
+    isAuthByRestore: boolean
+    isAuthByRegistration: boolean
+}
+
+const App = (props: MapStateToPropsType) => {
     const particleOpts = {
         "particles": {
             "number": {
@@ -100,6 +111,8 @@ const App = () => {
         }
     }
 
+    const isAuth = props.isAuthByLogin || props.isAuthByRegistration || props.isAuthByRestore;
+
     return (
         <div className='App'>
             <HashRouter>
@@ -107,14 +120,18 @@ const App = () => {
                 <Header/>
                 <Route path={login} component={Login}/>
                 <Route path={registration} component={Registration}/>
+                <Route path={restore} component={RestorePassword}/>
 
-
+                {!isAuth &&
                 <div className='main'>
                     <span className='welcome'> Welcome to ANOX! </span>
                     <div>
                         Study different things with us!
                     </div>
                 </div>
+                }
+
+
 
 
             </HashRouter>
@@ -124,4 +141,13 @@ const App = () => {
     );
 }
 
-export default App;
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+    return {
+        isAuthByLogin: state.login.isAuth,
+        isAuthByRestore: state.restore.isAuth,
+        isAuthByRegistration: state.registration.isAuth
+
+    }
+}
+
+export default connect<MapStateToPropsType, {}, {}, AppStateType>(mapStateToProps, {})(App);

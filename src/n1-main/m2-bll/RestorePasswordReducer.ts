@@ -9,15 +9,15 @@ type initialStateType = {
 }
 
 const initialState: initialStateType = {
-    buttonName: 'Sign in',
+    buttonName: 'Send password',
     buttonType: ['primary', 'danger'],
     loading: false,
     inputType: ['text', 'password'],
     isAuth: false
 }
 
-const LoginReducer = (state: initialStateType = initialState, action : any) => {
+const RestorePasswordReducer = (state: initialStateType = initialState, action : any) => {
     return state;
 }
 
-export default LoginReducer;
+export default RestorePasswordReducer;

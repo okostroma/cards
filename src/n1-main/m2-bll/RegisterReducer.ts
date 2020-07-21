@@ -3,13 +3,16 @@ type initialStateType = {
     buttonType: Array<string>
     loading: boolean
     inputType: Array<string>
+    value?: string
+    isAuth: boolean
 }
 
 const initialState: initialStateType = {
     buttonName: 'Sign up',
     buttonType: ['primary', 'danger'],
     loading: false,
-    inputType: ['text', 'password']
+    inputType: ['text', 'password'],
+    isAuth: false
 }
 
 const RegisterReducer = (state: initialStateType = initialState, action : any) => {

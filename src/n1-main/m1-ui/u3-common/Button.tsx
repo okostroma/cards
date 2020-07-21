@@ -5,6 +5,7 @@ type OwnPropTypes = {
     buttonName: string
     buttonType: string
     loading: boolean
+    onClick: () => void
 }
 
 
@@ -28,7 +29,7 @@ const Button = (props: OwnPropTypes) => {
 
     return (
         <div>
-            <button className={classes.default + ' ' + classAdd}>{load} {props.buttonName}</button>
+            <button className={classes.default + ' ' + classAdd} onClick={props.onClick}>{load} {props.buttonName}</button>
         </div>
     );
 }
