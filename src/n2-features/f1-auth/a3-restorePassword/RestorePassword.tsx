@@ -3,6 +3,8 @@ import Button from "../../../n1-main/m1-ui/u3-common/Button";
 import {AppStateType} from "../../../n1-main/m2-bll/store";
 import {connect} from "react-redux";
 import Input from "../../../n1-main/m1-ui/u3-common/Input";
+import {login, profile} from "../../../n1-main/m1-ui/u2-routes/routes";
+import {NavLink, Redirect} from "react-router-dom";
 
 
 type mapStateToPropsType = {
@@ -28,7 +30,8 @@ const RestorePassword = (props: mapStateToPropsType) => {
         <div>
             Enter your e-mail <Input onChange={onChange} value={props.value} inputType={props.inputType[0]}/>
 
-            <Button onClick={onClick} loading={props.loading} buttonType={props.buttonType} buttonName={props.buttonName}/>
+           <NavLink to={login}> <Button onClick={onClick} loading={props.loading}
+                                          buttonType={props.buttonType} buttonName={props.buttonName}/></NavLink>
 
         </div>
     )

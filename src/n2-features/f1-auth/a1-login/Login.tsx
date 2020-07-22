@@ -4,7 +4,7 @@ import {AppStateType} from "../../../n1-main/m2-bll/store";
 import Button from "../../../n1-main/m1-ui/u3-common/Button";
 import Input from "../../../n1-main/m1-ui/u3-common/Input";
 import {NavLink} from "react-router-dom";
-import {restore} from "../../../n1-main/m1-ui/u2-routes/routes";
+import {profile, restore} from "../../../n1-main/m1-ui/u2-routes/routes";
 
 
 type mapStateToPropsType = {
@@ -37,7 +37,12 @@ const Login = (props: mapStateToPropsType) => {
                 <NavLink to={restore}>Forgot password?</NavLink>
             </div>
 
-            <Button  onClick={onClick} loading={props.loading} buttonType={props.buttonType} buttonName={props.buttonName}/>
+            {props.isAuth ? <NavLink to={profile}><Button  onClick={onClick} loading={props.loading}
+                                                           buttonType={props.buttonType} buttonName={props.buttonName}/></NavLink> :
+                <Button  onClick={onClick} loading={props.loading}
+                         buttonType={props.buttonType} buttonName={props.buttonName}/>}
+
+
         </div>
     )
 }

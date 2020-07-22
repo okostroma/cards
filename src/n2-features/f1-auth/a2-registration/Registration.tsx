@@ -4,6 +4,7 @@ import {AppStateType} from "../../../n1-main/m2-bll/store";
 import {connect} from "react-redux";
 import Input from "../../../n1-main/m1-ui/u3-common/Input";
 import {NavLink} from "react-router-dom";
+import {profile} from "../../../n1-main/m1-ui/u2-routes/routes";
 
 type mapStateToPropsType = {
     buttonName: string
@@ -38,8 +39,10 @@ const Registration = (props: mapStateToPropsType) => {
                 Your password <Input onChange={onChange} value={props.value} inputType={props.inputType[1]}/>
             </div>
 
-
-            <Button loading={props.loading} onClick={onClick} buttonType={props.buttonType} buttonName={props.buttonName}/>
+            {props.isAuth ? <NavLink to={profile}><Button  onClick={onClick} loading={props.loading}
+                                                           buttonType={props.buttonType} buttonName={props.buttonName}/></NavLink> :
+                <Button  onClick={onClick} loading={props.loading}
+                         buttonType={props.buttonType} buttonName={props.buttonName}/>}
 
         </div>
     )

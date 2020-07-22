@@ -3,7 +3,7 @@ import classes from "./Header.module.css"
 import {HashRouter, NavLink, Route} from "react-router-dom";
 import Login from "../../../n2-features/f1-auth/a1-login/Login";
 import Registration from "../../../n2-features/f1-auth/a2-registration/Registration";
-import {login, registration} from "../u2-routes/routes";
+import {login, profile, registration} from "../u2-routes/routes";
 import {connect} from "react-redux";
 import {AppStateType} from "../../m2-bll/store";
 import Profile from "../../../n2-features/f1-auth/a4-profile/profile";
@@ -25,7 +25,7 @@ const Header = (props: MapStateToPropsType) => {
             </div>
             }
 
-            {isAuth && <Profile/>}
+            {/*{isAuth && <Profile/> }*/}
 
         </div>
     )
