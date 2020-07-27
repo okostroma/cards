@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect, useSelector} from 'react-redux';
 import {AppStateType} from "../../../n1-main/m2-bll/store";
-import Button from "../../../n1-main/m1-ui/u3-common/Button";
-import Input from "../../../n1-main/m1-ui/u3-common/Input";
+import Button from "../../../n1-main/m1-ui/u3-common/c2-button/Button";
+import Input from "../../../n1-main/m1-ui/u3-common/c3-input/Input";
 import {NavLink} from "react-router-dom";
 import {profile, restore} from "../../../n1-main/m1-ui/u2-routes/routes";
 
