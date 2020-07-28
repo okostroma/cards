@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 
 
 type OwnPropsType = {
     inputType: string
     value?: string
-    onChange: () => void
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 
