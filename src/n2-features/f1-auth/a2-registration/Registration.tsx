@@ -60,7 +60,7 @@ const Registration = (props: MapStateToPropsType & MapDispatchToPropsType) => {
 
             {props.isAuth ? <NavLink to={profile}><Button  onClick={onClick} loading={props.loading}
                                                            buttonType={props.buttonType} buttonName={props.buttonName}/></NavLink> :
-                <Button  onClick={postUserData} loading={props.loading}
+                <Button onClick={postUserData} loading={props.loading}
                          buttonType={props.buttonType} buttonName={props.buttonName}/>}
 
         </div>
