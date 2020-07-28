@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from "./Header.module.css"
 import {HashRouter, NavLink, Route} from "react-router-dom";
-import Login from "../../../n2-features/f1-auth/a1-login/Login";
+import Login from "../../../n2-features/f1-auth/a1-login/l1-ui/Login";
 import Registration from "../../../n2-features/f1-auth/a2-registration/Registration";
 import {login, profile, registration} from "../u2-routes/routes";
 import {connect} from "react-redux";
@@ -16,6 +16,8 @@ type MapStateToPropsType = {
 
 
 const Header = (props: MapStateToPropsType) => {
+
+
     const isAuth = props.isAuthByLogin || props.isAuthByRegistration || props.isAuthByRestore;
     return (<div>
             {!isAuth && <div className={classes.header}>
