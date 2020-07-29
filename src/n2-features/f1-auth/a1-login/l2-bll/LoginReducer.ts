@@ -10,7 +10,6 @@ type loginStateType = {
     inputType: Array<string>
     value?: string
     isAuth: boolean
-    // success: boolean
     error: string
 }
 
@@ -78,10 +77,17 @@ export type ThunkDispatchType = ThunkDispatch<AppStateType, {}, LoginActionsType
 
 export const singIn = (email: string, password: string, rememberMe: boolean): ThunkType =>
     async (dispatch: ThunkDispatchType) => {
-    const res = await loginAPI.singIn(email, password, rememberMe)
-        if(res.data){
-            dispatch(LoginActions.setSuccess(true))
-        }else {
-            dispatch(LoginActions.setError(res.data.error));
+        dispatch(LoginActions.setLoading(true))
+        try {
+            const res = await loginAPI.singIn(email, password, rememberMe)
+            if (res.data) {
+                dispatch(LoginActions.setSuccess(true))
+                dispatch(LoginActions.setLoading(false))
+            }
+        }catch (e) {
+            dispatch(LoginActions.setLoading(false))
+            dispatch(LoginActions.setError(e.response.data.error));
+
         }
-};
+    };
+

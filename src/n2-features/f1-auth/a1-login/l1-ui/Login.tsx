@@ -1,7 +1,6 @@
 import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
-import {connect, useDispatch} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from "../../../../n1-main/m2-bll/store";
-
 import {NavLink, Redirect} from "react-router-dom";
 import {profile, restore} from "../../../../n1-main/m1-ui/u2-routes/routes";
 import {singIn} from "../l2-bll/LoginReducer";
@@ -9,16 +8,9 @@ import Input from "../../../../n1-main/m1-ui/u3-common/c3-input/Input";
 import Button from '../../../../n1-main/m1-ui/u3-common/c2-button/Button';
 
 
-type mapStateToPropsType = {
-    buttonName: string
-    buttonType: string
-    loading: boolean
-    inputType: Array<string>
-    value?: string
-    isAuth: boolean
-}
 
-const Login = (props: mapStateToPropsType) => {
+const Login = () => {
+
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
@@ -27,56 +19,40 @@ const Login = (props: mapStateToPropsType) => {
     const setPasswordCallback = useCallback((e: ChangeEvent<HTMLInputElement>): void => setPassword(e.currentTarget.value), [setPassword]);
     const setRememberMeCallback = useCallback((e: ChangeEvent<HTMLInputElement>): void => setRememberMe(e.currentTarget.checked), [setRememberMe]);
 
+
+    const login: any = useSelector<AppStateType>(state => state.login)
     const dispatch = useDispatch();
 
     const signInCallback = useCallback(
         () => dispatch(singIn(email, password, rememberMe)),
-        [email, password,rememberMe, dispatch]
+        [email, password, rememberMe, dispatch]
     );
 
-    const onClick = () => {
-
-    }
-    const onChange = () => {
-
-    }
-
-    if (props.isAuth) {
+    if (login.isAuth) {
         return <Redirect to={profile}/>
     }
 
     return (
 
-        <div>
+        <form>
+            <div>{login.error}</div>
             <div>
-                Login <Input onChange={setEmailCallback} value={props.value} inputType={props.inputType[0]}/>
+                Login <Input onChange={setEmailCallback} value={login.value} inputType={login.inputType[0]}/>
             </div>
             <div>
-                Password <Input onChange={setPasswordCallback} value={props.value} inputType={props.inputType[1]}/>
+                Password <Input onChange={setPasswordCallback} value={login.value} inputType={login.inputType[1]}/>
             </div>
             <div>
-                Remember me <Input onChange={setRememberMeCallback} value={props.value} inputType={props.inputType[2]}/>
+                Remember me <Input onChange={setRememberMeCallback} value={login.value} inputType={login.inputType[2]}/>
             </div>
             <div>
                 <NavLink to={restore}>Forgot password?</NavLink>
             </div>
+            <Button onClick={signInCallback} loading={login.loading}
+                    buttonType={login.error !== '' ? login.buttonType[1] : login.buttonType[0] } buttonName={login.buttonName}/>
 
-            <Button onClick={signInCallback} loading={props.loading}
-                    buttonType={props.buttonType} buttonName={props.buttonName}/>
-        </div>
+        </form>
     )
 
 }
-
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
-    return {
-        buttonName: state.login.buttonName,
-        buttonType: state.login.buttonType[0],
-        loading: state.login.loading,
-        inputType: state.login.inputType,
-        value: state.login.value,
-        isAuth: state.login.isAuth
-    }
-}
-
-export default connect(mapStateToProps, null)(Login);
+export default Login;

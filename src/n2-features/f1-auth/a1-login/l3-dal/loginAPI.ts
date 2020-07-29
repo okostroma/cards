@@ -9,10 +9,14 @@ type CommonApiType<T> = {
 }
 
 export const loginAPI = {
-    getAuth() {
-        return instance.get(`auth`);
-    },
+    // getAuth() {
+    //     return instance.get(`auth`);
+    // },
     singIn (email: string, password: string, rememberMe: boolean)  {
-        return  instance.post('auth/login', {email, password, rememberMe}).then(res => res)
-    }
+        return  instance.post('auth/login', {email, password, rememberMe})
+            .then(res => {
+                debugger
+                return res
+            })
+         }
 }

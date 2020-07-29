@@ -6,7 +6,6 @@ import Input from "../../../n1-main/m1-ui/u3-common/c3-input/Input";
 import {NavLink} from "react-router-dom";
 import {profile} from "../../../n1-main/m1-ui/u2-routes/routes";
 import {isFetching, isUserAuth, registrationThunk} from "../../../n1-main/m2-bll/RegisterReducer";
-import {authAPI} from "../../../n1-main/m3-dal/api";
 
 type MapStateToPropsType = {
     buttonName: string
