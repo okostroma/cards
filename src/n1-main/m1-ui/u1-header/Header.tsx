@@ -11,14 +11,13 @@ export const Header = () => {
     const loginState: any = useSelector<AppStateType>(state => state.login)
 
     return (<div className={classes.header}>
-            {loginState.isAuth === true
-                ? <div>
+             <div>
                     <NavLink to={login}> Sign in </NavLink> |
                     <NavLink to={registration}> Sign up </NavLink>
                 </div>
-                : <div>
-                    <NavLink to={logout}> Log out </NavLink>
-                </div>}
+                {/*: <div>*/}
+                {/*    <NavLink to={logout}> Log out </NavLink>*/}
+                {/*</div>}*/}
 
         </div>
 

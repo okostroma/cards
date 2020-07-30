@@ -1,6 +1,8 @@
-import {authAPI} from "../m3-dal/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AppStateType} from "./store";
+import { AppStateType } from "../../../../n1-main/m2-bll/store";
+import {authAPI} from "../res3-dal/restoreAPI";
+
+
 
 type initialStateType = {
     buttonName: string
@@ -22,7 +24,7 @@ const initialState: initialStateType = {
 }
 const SET_SERVER_ANSWER = 'RESTORE_PASSWORD/SET_SERVER_ANSWER';
 
-const RestorePasswordReducer = (state: initialStateType = initialState, action : any) => {
+export const RestorePasswordReducer = (state: initialStateType = initialState, action : any) => {
     switch (action.type) {
         case SET_SERVER_ANSWER: {
             return {
@@ -54,4 +56,3 @@ export const resetPasswordThunk =(email: string):ThunkType => async (dispatch:Di
        }
 }
 
-export default RestorePasswordReducer;
