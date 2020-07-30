@@ -1,6 +1,7 @@
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AppStateType} from "./store";
-import {authAPI} from "../m3-dal/api";
+import {AppStateType} from "../../../../n1-main/m2-bll/store";
+import {authAPI} from "../r3-dal/registrAPI";
+
 
 type initialStateType = {
     buttonName: string
@@ -27,7 +28,7 @@ const SET_SERVER_ANSWER = 'SET_SERVER_ANSWER';
 
 
 
-const RegisterReducer = (state: initialStateType = initialState, action: ActionType) => {
+export const RegisterReducer = (state: initialStateType = initialState, action: ActionType) => {
     switch (action.type) {
         case IS_FETCHING: {
             return {
@@ -91,4 +92,3 @@ export const registrationThunk = (email: string, password: string): ThunkType =>
 }
 
 
-export default RegisterReducer;

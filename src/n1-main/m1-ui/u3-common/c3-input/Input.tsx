@@ -13,7 +13,7 @@ const Input = (props: OwnPropsType) => {
     return (
         <div>
             <div>
-               <input onChange={props.onChange} type={props.inputType} value={props.value}/>
+               <input onChange={props.onChange}  type={props.inputType} value={props.value} />
             </div>
         </div>
     )

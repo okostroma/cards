@@ -10,7 +10,6 @@ type loginStateType = {
     inputType: Array<string>
     value?: string
     isAuth: boolean
-    success: boolean
     error: string
 }
 
@@ -20,13 +19,12 @@ const loginInitialState: loginStateType = {
     loading: false,
     inputType: ['text', 'password', 'checkbox'],
     isAuth: false,
-    success: false,
     error: '',
 }
 const LoginActions = {
-    setSuccess: (success: boolean) => ({
+    setSuccess: (isAuth: boolean) => ({
         type: 'login/SET_SUCCESS',
-        success,
+        isAuth,
     } as const),
     setError: (error: string) => ({
         type: 'login/SET_ERROR',
@@ -40,12 +38,12 @@ const LoginActions = {
 
 type LoginActionsType = commonActionsType<typeof LoginActions>;
 
-const LoginReducer = (state: loginStateType = loginInitialState, action: LoginActionsType): loginStateType => {
+export const LoginReducer = (state: loginStateType = loginInitialState, action: LoginActionsType): loginStateType => {
     switch (action.type) {
         case 'login/SET_SUCCESS': {
             return {
                 ...state,
-                success: action.success,
+                isAuth: action.isAuth,
                 loading: false,
                 error: ''
             }
@@ -55,7 +53,7 @@ const LoginReducer = (state: loginStateType = loginInitialState, action: LoginAc
                 ...state,
                 error: action.error,
                 loading: false,
-                success: false,
+                isAuth: false,
             }
         }
         case 'login/SET_LOADING': {
@@ -63,7 +61,7 @@ const LoginReducer = (state: loginStateType = loginInitialState, action: LoginAc
                 ...state,
                 error: '',
                 loading: action.loading,
-                success: false,
+                isAuth: false,
             }
         }
         default:
@@ -72,24 +70,23 @@ const LoginReducer = (state: loginStateType = loginInitialState, action: LoginAc
 
 }
 
-export default LoginReducer
-
 export type ThunkType = ThunkAction<void, AppStateType, unknown, LoginActionsType>
 export type ThunkDispatchType = ThunkDispatch<AppStateType, {}, LoginActionsType>
 
 export const singIn = (email: string, password: string, rememberMe: boolean): ThunkType =>
     async (dispatch: ThunkDispatchType) => {
-    const res = await loginAPI.singIn(email, password, rememberMe)
-        if (res.data.resultCode === 0){
-            dispatch(LoginActions.setSuccess(true))
-        }else {
-            dispatch(LoginActions.setError(res.data.error));
+        dispatch(LoginActions.setLoading(true))
+        try {
+            const res = await loginAPI.singIn(email, password, rememberMe)
+            if (res.data) {
+
+                dispatch(LoginActions.setSuccess(true))
+                dispatch(LoginActions.setLoading(false))
+            }
+        }catch (e) {
+            dispatch(LoginActions.setLoading(false))
+            dispatch(LoginActions.setError(e.response.data.error));
+
         }
-};
-export const getAuth = (): ThunkType =>
-    async (dispatch: ThunkDispatchType) => {
-    const res = await loginAPI.getAuth()
-        if (res.data.resultCode === 0) {
-            dispatch(LoginActions.setSuccess(true))
-        }
-};
+    };
+

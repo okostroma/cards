@@ -10,8 +10,7 @@ const initialState: initialStateType = {
     userName: 'Oxana'
 }
 
-const ProfileReducer = (state: initialStateType = initialState, action : any) => {
+export const ProfileReducer = (state: initialStateType = initialState, action : any) => {
     return state;
 }
 
-export default ProfileReducer;

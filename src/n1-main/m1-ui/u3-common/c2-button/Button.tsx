@@ -6,6 +6,7 @@ type OwnPropTypes = {
     buttonType: string
     loading: boolean
     onClick: () => void
+    buttonDisabled: boolean
 }
 
 
@@ -29,7 +30,7 @@ const Button = (props: OwnPropTypes) => {
 
     return (
         <div>
-            <button className={classes.default + ' ' + classAdd} onClick={props.onClick} disabled={props.loading}>{load} {props.buttonName}</button>
+            <button disabled={props.buttonDisabled} className={classes.default + ' ' + classAdd} onClick={props.onClick}>{load} {props.buttonName}</button>
         </div>
     );
 }
