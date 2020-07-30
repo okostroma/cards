@@ -25,12 +25,12 @@ const RestorePassword = (props: mapStateToPropsType) => {
     const onChange =() => {
 
     }
-
+    const buttonDisabled = props.loading ? true : false
     return (
         <div>
             Enter your e-mail <Input onChange={onChange} value={props.value} inputType={props.inputType[0]}/>
 
-           <NavLink to={login}> <Button onClick={onClick} loading={props.loading}
+           <NavLink to={login}> <Button buttonDisabled={buttonDisabled} onClick={onClick} loading={props.loading}
                                           buttonType={props.buttonType} buttonName={props.buttonName}/></NavLink>
 
         </div>

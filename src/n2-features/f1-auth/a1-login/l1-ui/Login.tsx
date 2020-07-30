@@ -6,6 +6,7 @@ import {profile, restore} from "../../../../n1-main/m1-ui/u2-routes/routes";
 import {singIn} from "../l2-bll/LoginReducer";
 import Input from "../../../../n1-main/m1-ui/u3-common/c3-input/Input";
 import Button from '../../../../n1-main/m1-ui/u3-common/c2-button/Button';
+import classes from "./Login.module.css";
 
 
 
@@ -31,15 +32,16 @@ const Login = () => {
     if (login.isAuth) {
         return <Redirect to={profile}/>
     }
-
+    const inputStyle = login.error !== '' ? classes.errorLogin : ''
+    const buttonDisabled = login.loading ? true : false
     return (
 
         <form>
-            <div>{login.error}</div>
-            <div>
+            <div className={classes.errorText}>{login.error}</div>
+            <div className={inputStyle}>
                 Login <Input onChange={setEmailCallback} value={login.value} inputType={login.inputType[0]}/>
             </div>
-            <div>
+            <div className={inputStyle}>
                 Password <Input onChange={setPasswordCallback} value={login.value} inputType={login.inputType[1]}/>
             </div>
             <div>
@@ -48,7 +50,7 @@ const Login = () => {
             <div>
                 <NavLink to={restore}>Forgot password?</NavLink>
             </div>
-            <Button onClick={signInCallback} loading={login.loading}
+            <Button buttonDisabled={buttonDisabled} onClick={signInCallback} loading={login.loading}
                     buttonType={login.error !== '' ? login.buttonType[1] : login.buttonType[0] } buttonName={login.buttonName}/>
 
         </form>

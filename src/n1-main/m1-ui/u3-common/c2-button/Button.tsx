@@ -6,10 +6,12 @@ type OwnPropTypes = {
     buttonType: string
     loading: boolean
     onClick: () => void
+    buttonDisabled: boolean
 }
 
 
 const Button = (props: OwnPropTypes) => {
+
     let classAdd = '';
     if (props.buttonType === 'primary' ) {
         classAdd = classes.primary;
@@ -22,14 +24,15 @@ const Button = (props: OwnPropTypes) => {
         load = <img alt='loading' className={classes.load}
                     src='https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif'/>
     }
-
     if (props.loading) {
         classAdd = classes.primary;
     }
 
+    // const buttonDisabled = !props.loading ? false : true
+
     return (
         <div>
-            <button className={classes.default + ' ' + classAdd} onClick={props.onClick}>{load} {props.buttonName}</button>
+            <button disabled={props.buttonDisabled} className={classes.default + ' ' + classAdd} onClick={props.onClick}>{load} {props.buttonName}</button>
         </div>
     );
 }

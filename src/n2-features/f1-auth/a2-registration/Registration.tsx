@@ -45,6 +45,7 @@ const Registration = (props: MapStateToPropsType & MapDispatchToPropsType) => {
         props.registrationThunk(email, password);
     }
 
+    const buttonDisabled = props.loading ? true : false
 
     return (
         <div>
@@ -57,9 +58,9 @@ const Registration = (props: MapStateToPropsType & MapDispatchToPropsType) => {
 
             {props.serverAnswer === 'some error' && <span>{props.serverAnswer}</span>}
 
-            {props.isAuth ? <NavLink to={profile}><Button  onClick={onClick} loading={props.loading}
+            {props.isAuth ? <NavLink to={profile}><Button  buttonDisabled={buttonDisabled}  onClick={onClick} loading={props.loading}
                                                            buttonType={props.buttonType} buttonName={props.buttonName}/></NavLink> :
-                <Button  onClick={postUserData} loading={props.loading}
+                <Button buttonDisabled={buttonDisabled} onClick={postUserData} loading={props.loading}
                          buttonType={props.buttonType} buttonName={props.buttonName}/>}
 
         </div>
