@@ -10,7 +10,7 @@ import classes from "./Login.module.css";
 
 
 
-const Login = () => {
+export const Login = () => {
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -57,4 +57,3 @@ const Login = () => {
     )
 
 }
-export default Login;

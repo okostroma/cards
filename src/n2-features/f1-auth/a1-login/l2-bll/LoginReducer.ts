@@ -38,7 +38,7 @@ const LoginActions = {
 
 type LoginActionsType = commonActionsType<typeof LoginActions>;
 
-const LoginReducer = (state: loginStateType = loginInitialState, action: LoginActionsType): loginStateType => {
+export const LoginReducer = (state: loginStateType = loginInitialState, action: LoginActionsType): loginStateType => {
     switch (action.type) {
         case 'login/SET_SUCCESS': {
             return {
@@ -70,8 +70,6 @@ const LoginReducer = (state: loginStateType = loginInitialState, action: LoginAc
 
 }
 
-export default LoginReducer
-
 export type ThunkType = ThunkAction<void, AppStateType, unknown, LoginActionsType>
 export type ThunkDispatchType = ThunkDispatch<AppStateType, {}, LoginActionsType>
 
@@ -81,6 +79,7 @@ export const singIn = (email: string, password: string, rememberMe: boolean): Th
         try {
             const res = await loginAPI.singIn(email, password, rememberMe)
             if (res.data) {
+
                 dispatch(LoginActions.setSuccess(true))
                 dispatch(LoginActions.setLoading(false))
             }

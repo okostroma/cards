@@ -16,8 +16,6 @@ const initialState: initialStateType = {
     isAuth: false
 }
 
-const RestorePasswordReducer = (state: initialStateType = initialState, action : any) => {
+export const RestorePasswordReducer = (state: initialStateType = initialState, action : any) => {
     return state;
 }
-
-export default RestorePasswordReducer;

@@ -1,4 +1,8 @@
-import {instance} from '../../../../n1-main/m3-dal/api';
+import axios from 'axios';
+
+const instance = axios.create({
+    baseURL: 'http://localhost:7542/1.0/'
+})
 
 type CommonApiType<T> = {
     data: T

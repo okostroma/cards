@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
 import {HashRouter, Route} from "react-router-dom";
-import Login from "../../n2-features/f1-auth/a1-login/l1-ui/Login";
-import Registration from "../../n2-features/f1-auth/a2-registration/Registration";
-import Header from "./u1-header/Header";
+import {Login} from "../../n2-features/f1-auth/a1-login/l1-ui/Login";
+import {Registration} from "../../n2-features/f1-auth/a2-registration/r1-ui/Registration";
+import {Header} from "./u1-header/Header";
 import {login, profile, registration, restore} from "./u2-routes/routes";
 import Particles from 'react-particles-js';
-import RestorePassword from "../../n2-features/f1-auth/a3-restorePassword/RestorePassword";
+import {RestorePassword} from "../../n2-features/f1-auth/a3-restorePassword/res1-ui/RestorePassword";
 import {connect} from "react-redux";
 import {AppStateType} from "../m2-bll/store";
-import Profile from "../../n2-features/f1-auth/a4-profile/profile";
+import {Profile} from "../../n2-features/f1-auth/a4-profile/p1-ui/profile";
 
 
 
