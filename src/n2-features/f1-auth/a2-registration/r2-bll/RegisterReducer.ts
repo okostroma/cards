@@ -22,9 +22,9 @@ const initialState: initialStateType = {
     serverAnswer: ''
 }
 
-const IS_FETCHING = 'IS_FETCHING';
-const IS_USER_AUTH = 'IS_USER_AUTH';
-const SET_SERVER_ANSWER = 'SET_SERVER_ANSWER';
+const IS_FETCHING = 'REGISTRATION/IS_FETCHING';
+const IS_USER_AUTH = 'REGISTRATION/IS_USER_AUTH';
+const SET_SERVER_ANSWER = 'REGISTRATION/SET_SERVER_ANSWER';
 
 
 
@@ -87,6 +87,7 @@ export const registrationThunk = (email: string, password: string): ThunkType =>
         dispatch(setServerAnswer('ok'))
     } else {
         dispatch(setServerAnswer('some error'))
+        console.log('Such a user has already been created')
         dispatch(isFetching(false));
     }
 }
