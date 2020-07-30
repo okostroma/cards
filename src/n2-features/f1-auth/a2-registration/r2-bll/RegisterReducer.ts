@@ -1,6 +1,6 @@
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "../../../../n1-main/m2-bll/store";
-import {authAPI} from "../../a3-restorePassword/res3-dal/registrAPI";
+import {authAPI} from "../r3-dal/registrAPI";
 
 
 type initialStateType = {
