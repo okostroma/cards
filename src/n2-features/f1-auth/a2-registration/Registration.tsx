@@ -3,10 +3,12 @@ import Button from "../../../n1-main/m1-ui/u3-common/c2-button/Button";
 import {AppStateType} from "../../../n1-main/m2-bll/store";
 import {connect} from "react-redux";
 import Input from "../../../n1-main/m1-ui/u3-common/c3-input/Input";
-import {NavLink} from "react-router-dom";
+import { Redirect, withRouter} from "react-router-dom";
 import {profile} from "../../../n1-main/m1-ui/u2-routes/routes";
 import {isFetching, isUserAuth, registrationThunk} from "../../../n1-main/m2-bll/RegisterReducer";
-import {authAPI} from "../../../n1-main/m3-dal/api";
+import classes from "./Registration.module.css";
+import {compose} from "redux";
+
 
 type MapStateToPropsType = {
     buttonName: string
@@ -27,12 +29,8 @@ type MapDispatchToPropsType = {
 const Registration = (props: MapStateToPropsType & MapDispatchToPropsType) => {
 
     const [email, setEmail] = useState('oxa@gmail.com')
-    const [password, setPassword] = useState('!12345!')
+    const [password, setPassword] = useState('!12345!123')
 
-    const onClick = () => {
-        // props.isFetching(true);
-
-    }
     const setEmailCallback = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
         setEmail(e.currentTarget.value)
     }, [setEmail])
@@ -49,19 +47,25 @@ const Registration = (props: MapStateToPropsType & MapDispatchToPropsType) => {
 
     return (
         <div>
-            <div>
-                Your e-mail <Input onChange={setEmailCallback} value={email} inputType={props.inputType[0]}/>
-            </div>
-            <div>
-                Your password <Input onChange={setPasswordCallback} value={password} inputType={props.inputType[1]}/>
-            </div>
+            {props.isAuth && <Redirect to={profile}/>}
+            {!props.isAuth && <div>
+                <div>
+                    Your e-mail <Input onChange={setEmailCallback} value={email} inputType={props.inputType[0]}/>
+                </div>
+                <div>
+                    Your password <Input onChange={setPasswordCallback} value={password} inputType={props.inputType[1]}/>
+                    <div>
+                        {password.length <= 7 && <span className={classes.error}>Password length must be more then 7</span>}
+                    </div>
+                </div>
+            </div>}
+
 
             {props.serverAnswer === 'some error' && <span>{props.serverAnswer}</span>}
 
-            {props.isAuth ? <NavLink to={profile}><Button  onClick={onClick} loading={props.loading}
-                                                           buttonType={props.buttonType} buttonName={props.buttonName}/></NavLink> :
-                <Button  onClick={postUserData} loading={props.loading}
-                         buttonType={props.buttonType} buttonName={props.buttonName}/>}
+
+                <Button onClick={postUserData} loading={props.loading}
+                         buttonType={props.buttonType} buttonName={props.buttonName}/>
 
         </div>
     )

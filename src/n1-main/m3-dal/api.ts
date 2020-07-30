@@ -24,5 +24,13 @@ export const authAPI = {
                 password
             }
         ).then(res => res.data)
+    },
+    restorePassword(email: string){
+        return instance.post<any>('auth/forgot', {
+            email,
+            html1: "<a href='http://localhost:3000/cards#/restorePassword/",
+            html2: "'>reset-password-link</a>"
+        }).then(res => res.data)
     }
+
 }
