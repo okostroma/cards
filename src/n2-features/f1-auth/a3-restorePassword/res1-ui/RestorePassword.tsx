@@ -5,6 +5,7 @@ import {login} from "../../../../n1-main/m1-ui/u2-routes/routes";
 import {NavLink} from "react-router-dom";
 import Input from '../../../../n1-main/m1-ui/u3-common/c3-input/Input';
 import Button from "../../../../n1-main/m1-ui/u3-common/c2-button/Button";
+import {resetPasswordThunk} from "../res2-bll/RestorePasswordReducer";
 
 
 export const RestorePassword = () => {
@@ -18,10 +19,10 @@ export const RestorePassword = () => {
 
 
     const onClick = () => {
-        restore.resetPasswordThunk(email);
+        dispatch(resetPasswordThunk(email));
     }
 
-    const buttonDisabled = restore.loading ? true : false
+     const buttonDisabled = restore.loading ? true : false
     return (
         <div>
             Enter your e-mail <Input onChange={setEmailCallback} value={restore.value} inputType={restore.inputType[0]}/>
