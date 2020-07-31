@@ -3,14 +3,25 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from "../../../../n1-main/m2-bll/store";
 import {NavLink, Redirect} from "react-router-dom";
 import {profile, restore} from "../../../../n1-main/m1-ui/u2-routes/routes";
-import {singIn} from "../l2-bll/LoginReducer";
+import {singIn, authMe} from "../l2-bll/LoginReducer";
 import Input from "../../../../n1-main/m1-ui/u3-common/c3-input/Input";
 import Button from '../../../../n1-main/m1-ui/u3-common/c2-button/Button';
 import classes from "./Login.module.css";
+import Cookies from 'js-cookie';
 
 
+export const Login = React.memo(()  => {
 
-export const Login = () => {
+    const getCookie = () => {
+        const token = Cookies.get('token');
+        if(token) {
+            dispatch(authMe(token))
+        }
+    }
+
+    useEffect(() => {
+        getCookie()
+    },[])
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -21,7 +32,14 @@ export const Login = () => {
     const setRememberMeCallback = useCallback((e: ChangeEvent<HTMLInputElement>): void => setRememberMe(e.currentTarget.checked), [setRememberMe]);
 
 
-    const login: any = useSelector<AppStateType>(state => state.login)
+    const error = useSelector<AppStateType, string>(state => state.login.error)
+    const loading = useSelector<AppStateType, boolean>(state => state.login.loading)
+    const isAuth = useSelector<AppStateType, boolean>(state => state.login.isAuth)
+    const value = useSelector<AppStateType, string>(state => state.login.value)
+    const inputType = useSelector<AppStateType, string[]>(state => state.login.inputType)
+    const buttonType = useSelector<AppStateType, string[]>(state => state.login.buttonType)
+    const buttonName = useSelector<AppStateType, string>(state => state.login.buttonName)
+
     const dispatch = useDispatch();
 
     const signInCallback = useCallback(
@@ -29,31 +47,31 @@ export const Login = () => {
         [email, password, rememberMe, dispatch]
     );
 
-    if (login.isAuth) {
+    if (isAuth) {
         return <Redirect to={profile}/>
     }
-    const inputStyle = login.error !== '' ? classes.errorLogin : ''
-    const buttonDisabled = login.loading ? true : false
+    const inputStyle = error !== '' ? classes.errorLogin : ''
+    const buttonDisabled = loading
     return (
 
-        <form>
-            <div className={classes.errorText}>{login.error}</div>
+        <div>
+            <div className={classes.errorText}>{error}</div>
             <div className={inputStyle}>
-                Login <Input onChange={setEmailCallback} value={login.value} inputType={login.inputType[0]}/>
+                Login <Input onChange={setEmailCallback} value={value} inputType={inputType[0]}/>
             </div>
             <div className={inputStyle}>
-                Password <Input onChange={setPasswordCallback} value={login.value} inputType={login.inputType[1]}/>
+                Password <Input onChange={setPasswordCallback} value={value} inputType={inputType[1]}/>
             </div>
             <div>
-                Remember me <Input onChange={setRememberMeCallback} value={login.value} inputType={login.inputType[2]}/>
+                Remember me <Input onChange={setRememberMeCallback} value={value} inputType={inputType[2]}/>
             </div>
             <div>
                 <NavLink to={restore}>Forgot password?</NavLink>
             </div>
-            <Button buttonDisabled={buttonDisabled} onClick={signInCallback} loading={login.loading}
-                    buttonType={login.error !== '' ? login.buttonType[1] : login.buttonType[0] } buttonName={login.buttonName}/>
+            <Button buttonDisabled={buttonDisabled} onClick={signInCallback} loading={loading}
+                    buttonType={error !== '' ? buttonType[1] : buttonType[0] } buttonName={buttonName}/>
 
-        </form>
+        </div>
     )
 
-}
+})
