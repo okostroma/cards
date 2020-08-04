@@ -6,6 +6,7 @@ import Input from "../../../../n1-main/m1-ui/u3-common/c3-input/Input";
 import {Redirect} from "react-router-dom";
 import {profile} from "../../../../n1-main/m1-ui/u2-routes/routes";
 import {registrationThunk} from "../r2-bll/RegisterReducer";
+import classes from "./Registration.module.css";
 
 
 export const Registration = () => {
@@ -19,7 +20,7 @@ export const Registration = () => {
     const dispatch = useDispatch();
 
     const [email, setEmail] = useState('oxa@gmail.com')
-    const [password, setPassword] = useState('!12345!')
+    const [password, setPassword] = useState('!12345!123')
 
     const setEmailCallback = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
         setEmail(e.currentTarget.value)
@@ -47,6 +48,7 @@ export const Registration = () => {
             <div>
                 Your password <Input onChange={setPasswordCallback} value={password} inputType={inputType[1]}/>
             </div>
+            <div>{password.length <= 7 && <span className={classes.error}>Password length must be more then 7</span>}</div>
 
             {serverAnswer === 'some error' && <span>{serverAnswer}</span>}
 

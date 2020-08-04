@@ -1,6 +1,7 @@
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "../../../../n1-main/m2-bll/store";
-import {authAPI} from "../r3-dal/registrAPI";
+import { authAPI } from "../r3-dal/registrAPI";
+
 
 
 type initialStateType = {
@@ -22,9 +23,9 @@ const initialState: initialStateType = {
     serverAnswer: ''
 }
 
-const IS_FETCHING = 'IS_FETCHING';
-const IS_USER_AUTH = 'IS_USER_AUTH';
-const SET_SERVER_ANSWER = 'SET_SERVER_ANSWER';
+const IS_FETCHING = 'REGISTRATION/IS_FETCHING';
+const IS_USER_AUTH = 'REGISTRATION/IS_USER_AUTH';
+const SET_SERVER_ANSWER = 'REGISTRATION/SET_SERVER_ANSWER';
 
 
 
@@ -87,6 +88,7 @@ export const registrationThunk = (email: string, password: string): ThunkType =>
         dispatch(setServerAnswer('ok'))
     } else {
         dispatch(setServerAnswer('some error'))
+        console.log('Such a user has already been created')
         dispatch(isFetching(false));
     }
 }
