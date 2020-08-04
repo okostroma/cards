@@ -2,28 +2,34 @@ import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {commonActionsType} from "../../../../n1-main/m2-bll/actions";
 import {AppStateType} from "../../../../n1-main/m2-bll/store";
 import {loginAPI} from "../l3-dal/loginAPI";
+import Cookies from "js-cookie";
+import {profileAPI} from "../../a4-profile/p3-dall/profileAPI";
 
 type loginStateType = {
     buttonName: string
     buttonType: Array<string>
-    loading: boolean
     inputType: Array<string>
-    value?: string
+    value: string
+
+    loading: boolean
     isAuth: boolean
     error: string
     userName: string
     token: string
+    email: string
 }
 
 const loginInitialState: loginStateType = {
     buttonName: 'Sign in',
     buttonType: ['primary', 'danger'],
-    loading: false,
     inputType: ['text', 'password', 'checkbox'],
+    value:'',
+    loading: false,
     isAuth: false,
     error: '',
     userName: '',
     token: ''
+    email: '',
 }
 const LoginActions = {
     setSuccess: (isAuth: boolean) => ({
@@ -100,8 +106,8 @@ export const singIn = (email: string, password: string, rememberMe: boolean): Th
         dispatch(LoginActions.setLoading(true))
         try {
             const res = await loginAPI.singIn(email, password, rememberMe)
-            if (res.data) {
-
+                Cookies.set('token',res.data.token)
+                const token = Cookies.get('token')
                 dispatch(LoginActions.setSuccess(true))
                 dispatch(LoginActions.setLoading(false))
                 dispatch(LoginActions.setUserName(res.data.name))
@@ -109,8 +115,26 @@ export const singIn = (email: string, password: string, rememberMe: boolean): Th
             }
         }catch (e) {
             dispatch(LoginActions.setLoading(false))
+        } catch (e) {
             dispatch(LoginActions.setError(e.response.data.error));
-
         }
     };
 
+
+export const authMe = (token: string): ThunkType =>
+    (dispatch: ThunkDispatchType) => {
+        profileAPI.me(token)
+
+            .then((res) => {
+                debugger
+                let token = res.data.token
+                Cookies.set('token', token)
+                dispatch(LoginActions.setSuccess(true))
+            })
+
+    }
+export const logOut = (): ThunkType => (dispatch: ThunkDispatchType) => {
+            Cookies.remove('token')
+            dispatch(LoginActions.setSuccess(false))
+
+}

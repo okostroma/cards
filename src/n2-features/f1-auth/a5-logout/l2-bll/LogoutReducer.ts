@@ -1,4 +1,6 @@
 import {commonActionsType} from "../../../../n1-main/m2-bll/actions";
+import {ThunkDispatchType, ThunkType} from "../../a1-login/l2-bll/LoginReducer";
+import Cookies from "js-cookie";
 
 type loginStateType = {}
 
@@ -14,3 +16,7 @@ export const LogoutReducer = (state: loginStateType = loginInitialState, action:
     }
 
 }
+// export const logOut = (): ThunkType => (dispatch: ThunkDispatchType) => {
+//     Cookies.remove('token')
+//     dispatch(ProfileActions.setIsAuth(false))
+// }
