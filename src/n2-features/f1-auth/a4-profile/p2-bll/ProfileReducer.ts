@@ -61,7 +61,7 @@ const ProfileActions = {
         type: 'login/SET_SUCCESS',
         isAuth,
     } as const),
-    setUser: (email: string, name: string, isAdmin:string) => ({
+    setUser: (email: string, name: string, isAdmin: string) => ({
         type: 'login/SET_USER',
         email,
         name,
@@ -71,10 +71,9 @@ const ProfileActions = {
 }
 
 
-
 const SET_USER_NAME = 'SET_USER_NAME';
 
-export const ProfileReducer = (state: initialStateType = initialState, action : any) => {
+export const ProfileReducer = (state: initialStateType = initialState, action: any) => {
     switch (action.type) {
         case SET_USER_NAME: {
             return {
@@ -86,57 +85,48 @@ export const ProfileReducer = (state: initialStateType = initialState, action : 
 
     }
 
-export const ProfileReducer = (state: initialStateType = initialState, action: any) => {
-    // switch (action.type) {
-    //     case "profile/SET_TOKEN": {
-    //         return {
-    //             ...state,
-    //             user: {
-    //                 ...state.data,
-    //                 token: action.token,
-    //             },
-    //         }
-    //     }
-    //     default:
-            return state;
-    // }
-}
+    export const ProfileReducer = (state: initialStateType = initialState, action: any) => {
+        // switch (action.type) {
+        //     case "profile/SET_TOKEN": {
+        //         return {
+        //             ...state,
+        //             user: {
+        //                 ...state.data,
+        //                 token: action.token,
+        //             },
+        //         }
+        //     }
+        //     default:
+        return state;
+        // }
+    }
 
-type SetUserNameType = {
-    type: typeof SET_USER_NAME
-    userName: string
-}
+    type SetUserNameType = {
+        type: typeof SET_USER_NAME
+        userName: string
+    }
 
-type ThunkType = ThunkAction<void, AppStateType, unknown, any>
-type DispatchThunk = ThunkDispatch<AppStateType, unknown, any>
+    type ThunkType = ThunkAction<void, AppStateType, unknown, any>
+    type DispatchThunk = ThunkDispatch<AppStateType, unknown, any>
 
-const setUserName = (userName: string):SetUserNameType => ({type: SET_USER_NAME, userName})
-
-// export const setUserNameThunk =(email: string, password: string, rememberMe: boolean):ThunkType => async (dispatch:DispatchThunk) => {
-//     debugger
-//     let res = await loginAPI.singIn(email, password, rememberMe);
-//     if(res.data.success) {
-//         dispatch(setUserName(email))
-//     }
-//
-// }
 
 
     export const authMe = (token: string): ThunkType =>
-         (dispatch: ThunkDispatchType) => {
+        (dispatch: ThunkDispatchType) => {
             profileAPI.me(token)
                 .then((res) => {
-                let {email, name, isAdmin, token} = res.data
-                Cookies.set('token', token)
-                dispatch(ProfileActions.setIsAuth(true))
-                // dispatch(ProfileActions.setUserData(email, name, isAdmin))
-            })
+                    let {email, name, isAdmin, token} = res.data
+                    Cookies.set('token', token)
+                    dispatch(ProfileActions.setIsAuth(true))
+                    // dispatch(ProfileActions.setUserData(email, name, isAdmin))
+                })
 
         }
 
-    //
-    // export const logOut = (): ThunkType => (dispatch: ThunkDispatchType) => {
-    //     Cookies.remove('token')
-    //     dispatch(ProfileActions.setIsAuth(false))
-    // }
+
+//
+// export const logOut = (): ThunkType => (dispatch: ThunkDispatchType) => {
+//     Cookies.remove('token')
+//     dispatch(ProfileActions.setIsAuth(false))
+// }
 

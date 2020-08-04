@@ -1,4 +1,3 @@
-import React, {useEffect} from 'react';
 import React, {useEffect, useState} from 'react';
 import user from '../user.png';
 import classes from "./profile.module.css";

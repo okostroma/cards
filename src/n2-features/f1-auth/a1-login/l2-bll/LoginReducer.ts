@@ -28,7 +28,7 @@ const loginInitialState: loginStateType = {
     isAuth: false,
     error: '',
     userName: '',
-    token: ''
+    token: '',
     email: '',
 }
 const LoginActions = {
@@ -113,7 +113,7 @@ export const singIn = (email: string, password: string, rememberMe: boolean): Th
                 dispatch(LoginActions.setUserName(res.data.name))
                 dispatch(LoginActions.setToken(res.data.token))
             }
-        }catch (e) {
+        } catch (e) {
             dispatch(LoginActions.setLoading(false))
         } catch (e) {
             dispatch(LoginActions.setError(e.response.data.error));
