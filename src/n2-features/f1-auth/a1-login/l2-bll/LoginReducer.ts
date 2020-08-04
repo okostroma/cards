@@ -11,6 +11,7 @@ type loginStateType = {
     value?: string
     isAuth: boolean
     error: string
+    userName: string
 }
 
 const loginInitialState: loginStateType = {
@@ -20,6 +21,7 @@ const loginInitialState: loginStateType = {
     inputType: ['text', 'password', 'checkbox'],
     isAuth: false,
     error: '',
+    userName: ''
 }
 const LoginActions = {
     setSuccess: (isAuth: boolean) => ({
@@ -34,6 +36,10 @@ const LoginActions = {
         type: 'login/SET_LOADING',
         loading,
     } as const),
+    setUserName: (userName: string) => ({
+        type: 'SET_USER_NAME',
+        userName
+    } as const)
 }
 
 type LoginActionsType = commonActionsType<typeof LoginActions>;
@@ -64,6 +70,11 @@ export const LoginReducer = (state: loginStateType = loginInitialState, action: 
                 isAuth: false,
             }
         }
+        case 'SET_USER_NAME': {
+            return {
+                ...state, userName: action.userName
+            }
+        }
         default:
             return state
     }
@@ -82,6 +93,7 @@ export const singIn = (email: string, password: string, rememberMe: boolean): Th
 
                 dispatch(LoginActions.setSuccess(true))
                 dispatch(LoginActions.setLoading(false))
+                dispatch(LoginActions.setUserName(email))
             }
         }catch (e) {
             dispatch(LoginActions.setLoading(false))
