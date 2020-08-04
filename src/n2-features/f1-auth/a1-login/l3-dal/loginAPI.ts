@@ -13,5 +13,5 @@ export const loginAPI = {
             .then(res => {
                 return res
             })
-         }
+    }
 }
