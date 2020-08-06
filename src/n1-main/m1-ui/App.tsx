@@ -10,6 +10,7 @@ import {RestorePassword} from "../../n2-features/f1-auth/a3-restorePassword/res1
 import {connect} from "react-redux";
 import {AppStateType} from "../m2-bll/store";
 import {Profile} from "../../n2-features/f1-auth/a4-profile/p1-ui/profile";
+import {Cards} from "../../n2-features/а2-cards/c1-ui/Cards";
 
 
 
@@ -123,6 +124,7 @@ const App = (props: MapStateToPropsType) => {
                 <Route path={registration} component={Registration}/>
                 <Route path={restore} component={RestorePassword}/>
                 <Route path={profile} component={Profile}/>
+                <Route path={'/cards'} component={Cards}/>
 
 
                 {!isAuth &&

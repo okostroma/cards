@@ -14,6 +14,8 @@ type loginStateType = {
     loading: boolean
     isAuth: boolean
     error: string
+    userName: string
+    token: string
     email: string
 }
 
@@ -25,6 +27,8 @@ const loginInitialState: loginStateType = {
     loading: false,
     isAuth: false,
     error: '',
+    userName: '',
+    token: '',
     email: '',
 }
 const LoginActions = {
@@ -40,6 +44,14 @@ const LoginActions = {
         type: 'login/SET_LOADING',
         loading,
     } as const),
+    setUserName: (userName: string) => ({
+        type: 'SET_USER_NAME',
+        userName
+    } as const),
+    setToken: (token:string) => ({
+        type: 'SET_TOKEN',
+        token
+    } as const)
 }
 
 type LoginActionsType = commonActionsType<typeof LoginActions>;
@@ -70,6 +82,16 @@ export const LoginReducer = (state: loginStateType = loginInitialState, action: 
                 isAuth: false,
             }
         }
+        case 'SET_USER_NAME': {
+            return {
+                ...state, userName: action.userName
+            }
+        }
+        case 'SET_TOKEN': {
+            return {
+                ...state, token: action.token
+            }
+        }
         default:
             return state
     }
@@ -87,6 +109,12 @@ export const singIn = (email: string, password: string, rememberMe: boolean): Th
                 Cookies.set('token',res.data.token)
                 const token = Cookies.get('token')
                 dispatch(LoginActions.setSuccess(true))
+                dispatch(LoginActions.setLoading(false))
+                dispatch(LoginActions.setUserName(res.data.name))
+                dispatch(LoginActions.setToken(res.data.token))
+            }
+        } catch (e) {
+            dispatch(LoginActions.setLoading(false))
         } catch (e) {
             dispatch(LoginActions.setError(e.response.data.error));
         }

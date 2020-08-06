@@ -4,6 +4,7 @@ import {RegisterReducer} from "../../n2-features/f1-auth/a2-registration/r2-bll/
 import {RestorePasswordReducer} from "../../n2-features/f1-auth/a3-restorePassword/res2-bll/RestorePasswordReducer";
 import {ProfileReducer} from "../../n2-features/f1-auth/a4-profile/p2-bll/ProfileReducer";
 import thunk from "redux-thunk";
+import {cardsReducer} from "../../n2-features/а2-cards/c2-bll/cardsReducer";
 
 
 
@@ -11,7 +12,8 @@ const reducers = combineReducers({
     login: LoginReducer,
     registration: RegisterReducer,
     restore: RestorePasswordReducer,
-    profile: ProfileReducer
+    profile: ProfileReducer,
+    cards: cardsReducer
 })
 
 
