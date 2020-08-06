@@ -84,31 +84,31 @@ export const ProfileReducer = (state: initialStateType = initialState, action: a
             return state
 
     }
+}
 
-    export const ProfileReducer = (state: initialStateType = initialState, action: any) => {
-        // switch (action.type) {
-        //     case "profile/SET_TOKEN": {
-        //         return {
-        //             ...state,
-        //             user: {
-        //                 ...state.data,
-        //                 token: action.token,
-        //             },
-        //         }
-        //     }
-        //     default:
-        return state;
-        // }
-    }
+    // export const ProfileReducer = (state: initialStateType = initialState, action: any) => {
+    //     // switch (action.type) {
+    //     //     case "profile/SET_TOKEN": {
+    //     //         return {
+    //     //             ...state,
+    //     //             user: {
+    //     //                 ...state.data,
+    //     //                 token: action.token,
+    //     //             },
+    //     //         }
+    //     //     }
+    //     //     default:
+    //     return state;
+    //     // }
+    // }
 
     type SetUserNameType = {
         type: typeof SET_USER_NAME
         userName: string
     }
 
-    type ThunkType = ThunkAction<void, AppStateType, unknown, any>
+    // type ThunkType = ThunkAction<void, AppStateType, unknown, any>
     type DispatchThunk = ThunkDispatch<AppStateType, unknown, any>
-
 
 
     export const authMe = (token: string): ThunkType =>

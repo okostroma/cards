@@ -7,7 +7,7 @@
     font-size: 16px;
 }
 .default.primary {
-    background-color: rgba(113,88,88, 0.6);
+    background-color: rgba(113, 88, 88, 0.6);
     padding: 15px;
     border: 1px solid rgba(113,88,88, 0.8);
     color: #fff;
@@ -22,6 +22,7 @@
     color: #fff;
     border-radius: 5px;
 }
+
 
 button {
     margin: 5px;

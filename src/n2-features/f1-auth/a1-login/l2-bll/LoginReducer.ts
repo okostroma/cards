@@ -17,6 +17,7 @@ type loginStateType = {
     userName: string
     token: string
     email: string
+    _id: string
 }
 
 const loginInitialState: loginStateType = {
@@ -30,6 +31,7 @@ const loginInitialState: loginStateType = {
     userName: '',
     token: '',
     email: '',
+    _id: '',
 }
 const LoginActions = {
     setSuccess: (isAuth: boolean) => ({
@@ -112,9 +114,8 @@ export const singIn = (email: string, password: string, rememberMe: boolean): Th
                 dispatch(LoginActions.setLoading(false))
                 dispatch(LoginActions.setUserName(res.data.name))
                 dispatch(LoginActions.setToken(res.data.token))
-            }
-        } catch (e) {
-            dispatch(LoginActions.setLoading(false))
+        // } catch (e) {
+        //     dispatch(LoginActions.setLoading(false))
         } catch (e) {
             dispatch(LoginActions.setError(e.response.data.error));
         }
@@ -124,9 +125,7 @@ export const singIn = (email: string, password: string, rememberMe: boolean): Th
 export const authMe = (token: string): ThunkType =>
     (dispatch: ThunkDispatchType) => {
         profileAPI.me(token)
-
             .then((res) => {
-                debugger
                 let token = res.data.token
                 Cookies.set('token', token)
                 dispatch(LoginActions.setSuccess(true))

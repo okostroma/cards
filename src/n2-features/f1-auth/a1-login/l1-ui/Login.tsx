@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from "../../../../n1-main/m2-bll/store";
 import {NavLink, Redirect} from "react-router-dom";
 import {profile, restore} from "../../../../n1-main/m1-ui/u2-routes/routes";
@@ -23,8 +23,8 @@ export const Login = React.memo(()  => {
         getCookie()
     },[])
 
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
+    const [email, setEmail] = useState<string>('anna@gmail.com')
+    const [password, setPassword] = useState<string>('1234qwerasdf')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
 
     const setEmailCallback = useCallback((e: ChangeEvent<HTMLInputElement>): void => setEmail(e.currentTarget.value), [setEmail]);

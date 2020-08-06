@@ -1,26 +1,22 @@
 import React from 'react';
 import './App.css';
-import {HashRouter, Route} from "react-router-dom";
+import {HashRouter, Route, Switch} from "react-router-dom";
 import {Login} from "../../n2-features/f1-auth/a1-login/l1-ui/Login";
 import {Registration} from "../../n2-features/f1-auth/a2-registration/r1-ui/Registration";
 import {Header} from "./u1-header/Header";
-import {login, profile, registration, restore} from "./u2-routes/routes";
+import {cards, login, packs, profile, registration, restore, screenSaver} from "./u2-routes/routes";
 import Particles from 'react-particles-js';
 import {RestorePassword} from "../../n2-features/f1-auth/a3-restorePassword/res1-ui/RestorePassword";
 import {connect} from "react-redux";
 import {AppStateType} from "../m2-bll/store";
 import {Profile} from "../../n2-features/f1-auth/a4-profile/p1-ui/profile";
 import {Cards} from "../../n2-features/а2-cards/c1-ui/Cards";
+import Packs from "../../n2-features/f3-packs/p1-ui/Packs";
+import ScreenSaver from "./u3-common/ScreenSaver";
 
 
 
-type MapStateToPropsType = {
-    isAuthByLogin: boolean
-    isAuthByRestore: boolean
-    isAuthByRegistration: boolean
-}
-
-const App = (props: MapStateToPropsType) => {
+const App = () => {
     const particleOpts = {
         "particles": {
             "number": {
@@ -113,32 +109,20 @@ const App = (props: MapStateToPropsType) => {
         }
     }
 
-    const isAuth = props.isAuthByLogin || props.isAuthByRegistration || props.isAuthByRestore;
-
     return (
         <div className='App'>
             <HashRouter>
                 <Particles className='particles' params={particleOpts}/>
                 <Header/>
-                <Route path={login} component={Login}/>
-                <Route path={registration} component={Registration}/>
-                <Route path={restore} component={RestorePassword}/>
-                <Route path={profile} component={Profile}/>
-                <Route path={'/cards'} component={Cards}/>
-
-
-                {!isAuth &&
-                <div className='main'>
-                    <span className='welcome'> Welcome to ANOX! </span>
-                    <div>
-                        Study different things with us!
-                    </div>
-                </div>
-                }
-
-
-
-
+                <Switch>
+                    <Route path={login} component={Login}/>
+                    <Route path={registration} component={Registration}/>
+                    <Route path={restore} component={RestorePassword}/>
+                    <Route path={profile} component={Profile}/>
+                    <Route path={cards} component={Cards}/>
+                    <Route path={packs} component={Packs}/>
+                    <Route exact path={screenSaver} component={ScreenSaver}/>
+                </Switch>
             </HashRouter>
         </div>
 
@@ -146,13 +130,5 @@ const App = (props: MapStateToPropsType) => {
     );
 }
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-    return {
-        isAuthByLogin: state.login.isAuth,
-        isAuthByRestore: state.restore.isAuth,
-        isAuthByRegistration: state.registration.isAuth
 
-    }
-}
-
-export default connect<MapStateToPropsType, {}, {}, AppStateType>(mapStateToProps, {})(App);
+export default App;

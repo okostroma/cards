@@ -3,7 +3,7 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 
 import classes from "./Cards.module.css";
 import {AppStateType} from "../../../n1-main/m2-bll/store";
-import { getCardsThunk } from '../c2-bll/cardsReducer';
+import { useParams } from 'react-router-dom';
 
 
 
@@ -12,17 +12,17 @@ export const Cards = () => {
     const cards: any = useSelector<AppStateType>(state => state.cards.cardPacks)
     const token: any = useSelector<AppStateType>(state => state.login.token)
     const dispatch = useDispatch();
+    let {id} = useParams()
 
-
-    const getCards = () => {
-        dispatch(getCardsThunk(token))
-    }
+    // useEffect(() => {
+    //     dispatch(getCardsThunk(id))
+    // }, [])
 
 
     return (
 
         <div>
-            <button onClick={getCards}>Get cards</button>
+            <button >Get cards</button>
             {cards}
 
 
