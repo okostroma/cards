@@ -24,7 +24,7 @@ const loginInitialState: loginStateType = {
     buttonName: 'Sign in',
     buttonType: ['primary', 'danger'],
     inputType: ['text', 'password', 'checkbox'],
-    value:'',
+    value: '',
     loading: false,
     isAuth: false,
     error: '',
@@ -50,9 +50,15 @@ const LoginActions = {
         type: 'SET_USER_NAME',
         userName
     } as const),
-    setToken: (token:string) => ({
+    setToken: (token: string) => ({
         type: 'SET_TOKEN',
         token
+    } as const),
+    setUser: (email:string,name:string, _id:string) => ({
+        type: 'SET_USER',
+        email,
+        name,
+        _id
     } as const)
 }
 
@@ -94,6 +100,11 @@ export const LoginReducer = (state: loginStateType = loginInitialState, action: 
                 ...state, token: action.token
             }
         }
+        case 'SET_USER': {
+            return {
+                ...state, _id: action._id,
+            }
+        }
         default:
             return state
     }
@@ -108,32 +119,33 @@ export const singIn = (email: string, password: string, rememberMe: boolean): Th
         dispatch(LoginActions.setLoading(true))
         try {
             const res = await loginAPI.singIn(email, password, rememberMe)
-                Cookies.set('token',res.data.token)
-                const token = Cookies.get('token')
-                dispatch(LoginActions.setSuccess(true))
-                dispatch(LoginActions.setLoading(false))
-                dispatch(LoginActions.setUserName(res.data.name))
-                dispatch(LoginActions.setToken(res.data.token))
-        // } catch (e) {
-        //     dispatch(LoginActions.setLoading(false))
+            Cookies.set('token', res.data.token)
+            const token = Cookies.get('token')
+            dispatch(LoginActions.setSuccess(true))
+            dispatch(LoginActions.setLoading(false))
+            dispatch(LoginActions.setUserName(res.data.name))
+            dispatch(LoginActions.setToken(res.data.token))
+            // } catch (e) {
+            //     dispatch(LoginActions.setLoading(false))
         } catch (e) {
             dispatch(LoginActions.setError(e.response.data.error));
         }
     };
 
 
-export const authMe = (token: string): ThunkType =>
+export const authMe = (): ThunkType =>
     (dispatch: ThunkDispatchType) => {
-        profileAPI.me(token)
-            .then((res) => {
-                let token = res.data.token
-                Cookies.set('token', token)
-                dispatch(LoginActions.setSuccess(true))
-            })
+        let token = Cookies.get('token')
+        profileAPI.me(token).then((res) => {
+            let {email, name, token, _id} = res.data
+            Cookies.set('token', token)
+            dispatch(LoginActions.setUser(email, name,_id))
+            dispatch(LoginActions.setSuccess(true))
+        })
 
     }
 export const logOut = (): ThunkType => (dispatch: ThunkDispatchType) => {
-            Cookies.remove('token')
-            dispatch(LoginActions.setSuccess(false))
+    Cookies.remove('token')
+    dispatch(LoginActions.setSuccess(false))
 
 }

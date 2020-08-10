@@ -9,8 +9,14 @@ export const packsAPI = {
                 return res.data
             })
     },
-    addPack(token: string | undefined) {
-        return instance.post('cards/pack', {cardsPack: token})
+    addPack(token: string | undefined, name: string) {
+        return instance.post('cards/pack', {cardsPack: {name}, token})
+            .then(res => {
+                return res.data
+            })
+    },
+    deletePack(token: string | undefined, id: string) {
+        return instance.delete(`cards/pack?token=${token}&id=${id}`)
             .then(res => {
                 return res.data
             })

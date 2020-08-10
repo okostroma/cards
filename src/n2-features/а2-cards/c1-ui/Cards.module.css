@@ -1,0 +1,12 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+    width: 96%;
+}
+.header{
+    display: flex;
+    align-items: center;
+    margin: 10px auto;
+}

@@ -3,3 +3,7 @@
     text-decoration: none;
 
 }
+.headerButtons{
+    display: flex;
+    flex-direction: row;
+}

@@ -1,4 +1,5 @@
 import React, {ChangeEvent} from 'react';
+import classes from "./Input.module.css";
 
 
 type OwnPropsType = {
@@ -9,13 +10,11 @@ type OwnPropsType = {
 }
 
 
-
 const Input = (props: OwnPropsType) => {
     return (
-        <div>
-            <div>
-               <input onChange={props.onChange}  type={props.inputType} value={props.value} placeholder={props.placeholder}/>
-            </div>
+        <div className={classes.commonInput}>
+            <input onChange={props.onChange} type={props.inputType} value={props.value}
+                   placeholder={props.placeholder}/>
         </div>
     )
 }

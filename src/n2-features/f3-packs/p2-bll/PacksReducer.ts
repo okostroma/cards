@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 
 const SET_PACKS = 'SET_PACKS'
 const ADD_PACK = 'ADD_PACK'
+const DELETE_PACK = 'DELETE_PACK'
 
 export type PackType = {
     _id: string
@@ -27,7 +28,7 @@ const initialState = {
     cardPacks: []
 }
 
-type ActionsType = setPacks | addPack
+type ActionsType = setPacks | addPack |deletePack
 
 export const packsReducer = (state: initialStateType = initialState, action: ActionsType) => {
     switch (action.type) {
@@ -41,6 +42,12 @@ export const packsReducer = (state: initialStateType = initialState, action: Act
             return {
                 ...state,
                 cardPacks: [...state.cardPacks, action.newPack]
+            }
+        }
+        case DELETE_PACK: {
+            return {
+                ...state,
+                cardPacks: state.cardPacks.filter(c => c._id != action.packId)
             }
         }
         default:
@@ -58,8 +65,13 @@ type addPack = {
     type: typeof ADD_PACK,
     newPack: PackType
 }
+type deletePack = {
+    type: typeof DELETE_PACK,
+    packId: string
+}
 const setPacks = (packs: Array<PackType>): setPacks => ({type: SET_PACKS, packs})
 const addPack = ( newPack: PackType): addPack => ({type: ADD_PACK, newPack})
+const deletePack = (packId: string ): deletePack => ({type: DELETE_PACK, packId})
 
 
 export type ThunkType = ThunkAction<void, AppStateType, unknown, any>
@@ -74,12 +86,20 @@ export const getPacksT = (userId: string): ThunkType => (dispatch: ThunkDispatch
         })
 
 }
-export const addCardsPack = (): ThunkType => (dispatch: ThunkDispatchType) => {
+export const addCardsPack = (name: string): ThunkType => (dispatch: ThunkDispatchType) => {
     let token = Cookies.get('token')
-    packsAPI.addPack(token)
+    packsAPI.addPack(token, name)
         .then(res => {
             Cookies.set('token', res.token)
             dispatch(addPack(res.newCardsPack))
+        })
+}
+export const deleteCardsPack = (packId: string): ThunkType => (dispatch: ThunkDispatchType) => {
+    let token = Cookies.get('token')
+    packsAPI.deletePack(token, packId)
+        .then(res => {
+            Cookies.set('token', res.token)
+            dispatch(deletePack(packId))
         })
 
 }

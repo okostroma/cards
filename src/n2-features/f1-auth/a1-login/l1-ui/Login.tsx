@@ -3,24 +3,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from "../../../../n1-main/m2-bll/store";
 import {NavLink, Redirect} from "react-router-dom";
 import {profile, restore} from "../../../../n1-main/m1-ui/u2-routes/routes";
-import {singIn, authMe} from "../l2-bll/LoginReducer";
+import {authMe, singIn} from "../l2-bll/LoginReducer";
 import Input from "../../../../n1-main/m1-ui/u3-common/c3-input/Input";
 import Button from '../../../../n1-main/m1-ui/u3-common/c2-button/Button';
 import classes from "./Login.module.css";
-import Cookies from 'js-cookie';
 
 
 export const Login = React.memo(()  => {
 
-    const getCookie = () => {
-        const token = Cookies.get('token');
-        if(token) {
-            dispatch(authMe(token))
-        }
-    }
-
     useEffect(() => {
-        getCookie()
+        dispatch(authMe())
     },[])
 
     const [email, setEmail] = useState<string>('anna@gmail.com')
@@ -30,7 +22,6 @@ export const Login = React.memo(()  => {
     const setEmailCallback = useCallback((e: ChangeEvent<HTMLInputElement>): void => setEmail(e.currentTarget.value), [setEmail]);
     const setPasswordCallback = useCallback((e: ChangeEvent<HTMLInputElement>): void => setPassword(e.currentTarget.value), [setPassword]);
     const setRememberMeCallback = useCallback((e: ChangeEvent<HTMLInputElement>): void => setRememberMe(e.currentTarget.checked), [setRememberMe]);
-
 
     const error = useSelector<AppStateType, string>(state => state.login.error)
     const loading = useSelector<AppStateType, boolean>(state => state.login.loading)

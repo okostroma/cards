@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from "./Header.module.css"
 import {NavLink, useHistory} from "react-router-dom";
-import {login, packs, registration} from "../u2-routes/routes";
+import {login, packs, registration, cards} from "../u2-routes/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../m2-bll/store";
 import {logOut} from '../../../n2-features/f1-auth/a1-login/l2-bll/LoginReducer';
@@ -30,8 +30,11 @@ export const Header = () => {
                 <div className={classes.headerButtons} >
                     <Button buttonName={'Log out'} buttonType={'primary'} loading={false} onClick={onClickLogout} buttonDisabled={false}/>
                     <NavLink to={packs}>
-                        <Button buttonName={'Show packs'} buttonType={'light'} loading={false} onClick={()=>{}} buttonDisabled={false}/>
+                        <Button buttonName={'Show user packs'} buttonType={'light'} loading={false} onClick={()=>{}} buttonDisabled={false}/>
                     </NavLink>
+                    {/*<NavLink to={packs}>*/}
+                    {/*    <Button buttonName={'Show all packs'} buttonType={'light'} loading={false} onClick={()=>{}} buttonDisabled={false}/>*/}
+                    {/*</NavLink>*/}
                 </div>
 
             }

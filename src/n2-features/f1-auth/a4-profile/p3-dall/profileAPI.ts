@@ -6,17 +6,12 @@ type CommonApiType<T> = {
 
 export const profileAPI = {
 
-    me(token: string) {
+    me(token: string | undefined) {
         return instance.post('auth/me', {token})
             .then(res => {
                 return res
             })
     }
-    // logout() {
-    //     return instance.delete('auth/me')
-    //         .then(res => {
-    //             return res
-    //         })
-    // }
+
 
 }

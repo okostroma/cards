@@ -3,5 +3,5 @@ export const registration = '/registration';
 export const restore = '/restorePassword';
 export const profile = '/profile';
 export const packs = '/packs';
-export const cards = '/cards';
+export const cards = '/card/:id';
 export const screenSaver = '/';

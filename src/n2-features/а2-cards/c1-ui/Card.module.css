@@ -1,17 +1,17 @@
-.packTable {
+.cardTable {
     display: flex;
     width: 90%;
     justify-content: center;
     border-collapse: collapse;
 }
 
-.packTable table {
+.cardTable table {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.packTable th, td {
+.cardTable th, td {
     display: flex;
     min-width: 25%;
     justify-content: center;
@@ -22,21 +22,17 @@
     border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-.packTable th {
+.cardTable th {
     background-color: rgb(255, 255, 255);
+
 }
 
-.links a {
-    margin-left: 5px;
-    color: black;
-}
-
-.packTable img {
+.cardTable img {
     height: 25px;
-    margin: auto 5px;
+    margin: auto 5px ;
 }
 
-.packTable tr {
+.cardTable tr {
     display: flex;
     width: 100%;
 

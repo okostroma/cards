@@ -1,3 +1,10 @@
+.commonInput input{
+    height: 49px;
+    border:none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
 .formControl.error input
 {
     border: solid red 2px;
